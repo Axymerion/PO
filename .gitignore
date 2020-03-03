@@ -1,5 +1,6 @@
 #VS Shit
 *.vcxproj.*
+*.vcxproj
 *.sln
 \.vs
 Debug
