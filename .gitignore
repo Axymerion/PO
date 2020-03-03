@@ -1,7 +1,7 @@
 #VS Shit
-.vcxproj.*
-.sln
-.vs\
+*.vcxproj.*
+*.sln
+\.vs
 Debug
 
 # Prerequisites
