@@ -19,6 +19,7 @@ public:
 	Error PushBack(const Point&);
 	Error Find(Point&, const size_t);
 	Error Insert(const Point&, const size_t);
+	size_t Size();
 
 
 private:

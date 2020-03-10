@@ -2,17 +2,15 @@
 
 int main()
 {
-	List* l = new List();
+	List* l;
 	while (true)
 	{
+		l = new List();
 		for (int i = 0; i < 1000; i++)
 		{
 			Point p{ i, i, i };
 			l->PushBack(p);
 		}
-		for (int i = 0; i < 1000; i++)
-		{
-			l->PopBack();
-		}
+		delete l;
 	}
 }

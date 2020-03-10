@@ -16,16 +16,16 @@ List::List(Point p)
 
 List::~List() 
 {
-	for (size_t i = this->size; i >= 0; i--)
+	while (this->size > 0)
 	{
-		Pop(i);
+		PopBack();
 	}
 }
 
 List::Node* List::Find(const size_t i)
 {
 	Node* temp = this->first;
-	for (size_t j = i - 1; j < this->size - 1; j++)
+	for (size_t j = 0; j < i; j++)
 	{
 		temp = temp->next;
 	}
@@ -34,20 +34,23 @@ List::Node* List::Find(const size_t i)
 
 void List::Pop(const size_t i)
 {
-	if (this->size > 1)
+	if (this->size == 1)
+	{
+		delete this->first;
+		this->first = nullptr;
+	}
+	else if (this->size > 1)
 	{
 		Node* temp1 = Find(i - 1);
-		//TODO
-		if(temp1->next != nullptr)
-			{ }
 		Node* temp2 = temp1->next;
 		temp1->next = temp2->next;
 		delete temp2;
 	}
 	else
 	{
-		delete this->first;
-		this->first = nullptr;
+		Node* temp = Find(i - 1);
+		delete temp->next;
+		temp->next = nullptr;
 	}
 	this->size--;
 
@@ -57,9 +60,7 @@ void List::Push(const Point& p, const size_t i)
 {
 	if (this->size > 0) {
 		Node* temp1 = Find(i - 1);
-		Node* temp2 = new Node;
-		temp2->next = temp1->next;
-		temp2->p = p;
+		Node* temp2 = new Node { p, temp1->next };
 		temp1->next = temp2;
 	}
 	else
@@ -110,4 +111,9 @@ List::Error List::Insert(const Point& p, const size_t i)
 
 	Push(p, i);
 	return Error::SUCCESS;
+}
+
+size_t List::Size()
+{
+	return this->size;
 }
