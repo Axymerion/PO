@@ -74,43 +74,43 @@ List::Error List::Find(Point& out, const size_t i)
 {
 	if (i >= this->size)
 	{
-		return Error::INDEX_OUT_OF_BOUNDS;
+		return INDEX_OUT_OF_BOUNDS;
 	}
 	else if(this->size == 0)
 	{
-		return Error::LIST_EMPTY;
+		return LIST_EMPTY;
 	}
 
 	out = Find(i)->p;
-	return Error::SUCCESS;
+	return SUCCESS;
 }
 
 List::Error List::PopBack()
 {
 	if (this->size == 0)
 	{
-		return Error::LIST_EMPTY;
+		return LIST_EMPTY;
 	}
 
 	Pop(this->size - 1);
-	return Error::SUCCESS;
+	return SUCCESS;
 }
 
 List::Error List::PushBack(const Point& p)
 {
 	Push(p, this->size);
-	return Error::SUCCESS;
+	return SUCCESS;
 }
 
 List::Error List::Insert(const Point& p, const size_t i)
 {
 	if (i > this->size || i < 0) 
 	{
-		return Error::INDEX_OUT_OF_BOUNDS;
+		return INDEX_OUT_OF_BOUNDS;
 	}
 
 	Push(p, i);
-	return Error::SUCCESS;
+	return SUCCESS;
 }
 
 size_t List::Size()
