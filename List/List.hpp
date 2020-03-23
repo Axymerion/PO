@@ -1,3 +1,5 @@
+#include <vector>
+#include <iostream>
 #pragma once
 
 struct Point 
@@ -13,6 +15,8 @@ public:
 
 	List();
 	List(Point p);
+	List(const std::vector<Point>&);
+	List(const List&);
 	~List();
 
 	Error PopBack();
@@ -20,6 +24,15 @@ public:
 	Error Find(Point&, const size_t);
 	Error Insert(const Point&, const size_t);
 	size_t Size();
+
+	List& operator =(const List&);
+	List& operator --(int);
+	List& operator +=(const List&);
+	List& operator +(const List&);
+	List& operator *(const unsigned int);
+	List& operator ++(int);
+	Point& operator [](const size_t);
+	friend std::ostream& operator <<(std::ostream&, const List&);
 
 
 private:
@@ -35,4 +48,8 @@ private:
 	Node* Find(const size_t);
 	void Pop(const size_t);
 	void Push(const Point&, const size_t);
+	void Push(const List&, const size_t);
+	void Multiply(const int);
 };
+
+std::ostream& operator <<(std::ostream&, const List&);

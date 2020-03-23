@@ -14,6 +14,29 @@ List::List(Point p)
 	this->size = 1;
 }
 
+List::List(const std::vector<Point>& inputVector)
+{
+	this->first = nullptr;
+	this->size = 0;
+	for (size_t i = 0; i < inputVector.size(); i++)
+	{
+		this->Push(inputVector[i], i);
+	}
+}
+
+List::List(const List& inputList)
+{
+	this->first = nullptr;
+	this->size = 0;
+	Node* temp = inputList.first;
+
+	for (size_t i = 0; i < inputList.size; i++)
+	{
+		this->Push(temp->p, this->size);
+		temp = temp->next;
+	}
+}
+
 List::~List() 
 {
 	while (this->size > 0)
@@ -70,6 +93,28 @@ void List::Push(const Point& p, const size_t i)
 	this->size++;
 }
 
+void List::Push(const List& inputList, const size_t index)
+{
+	Node* temp = inputList.first;
+	for (size_t i = 0; i < inputList.size; i++)
+	{
+		this->Push(temp->p, index + i);
+		temp = temp->next;
+	}
+}
+
+void List::Multiply(const int multiplier)
+{
+	size_t size = this->size;
+	for (int i = 0; i < multiplier; i++)
+	{
+		for (size_t j = 0; j < size; j++)
+		{
+			PushBack(this->Find(i)->p);
+		}
+	}
+}
+
 List::Error List::Find(Point& out, const size_t i)
 {
 	if (i >= this->size)
@@ -116,4 +161,81 @@ List::Error List::Insert(const Point& p, const size_t i)
 size_t List::Size()
 {
 	return this->size;
+}
+
+Point& List::operator[] (size_t index)
+{
+	Node* temp = Find(index);
+	return temp->p;
+}
+
+List& List::operator =(const List& inputList)
+{
+	while (this->size > 0)
+	{
+		PopBack();
+	}
+	Node* temp1 = inputList.first;
+	Node* temp2 = this->first = new Node{ temp1->p, nullptr };
+
+	for (size_t i = 1; i < inputList.size; i++)
+	{
+		temp2->next = new Node{ temp1->p, nullptr };
+		temp2 = temp2->next;
+		temp1 = temp1->next;
+	}
+	this->size = inputList.size;
+	return *this;
+}
+
+List& List::operator --(int)
+{
+	List *temp = new List(*this);
+	this->PopBack();
+	return *temp;
+}
+
+List& List::operator +=(const List& inputList)
+{
+	this->Push(inputList, size);
+	return *this;
+}
+
+List& List::operator +(const List& inputList)
+{
+	List *temp = new List();
+	*temp = *this;
+	temp->Push(inputList, temp->size);
+	return *temp;
+}
+
+List& List::operator *(const unsigned int scale)
+{
+	List* temp = new List();
+	for (unsigned int i = 0; i < scale; i++)
+	{
+		*temp += *this;
+	}
+	return *temp;
+}
+
+List& List::operator ++(int)
+{
+	List *temp = new List(*this);
+	while (this->size > 0)
+	{
+		PopBack();
+	}
+	return *temp;
+}
+
+std::ostream& operator <<(std::ostream& os, const List& inputList)
+{
+	List::Node* temp = inputList.first;
+	for (size_t i = 0; i < inputList.size; i++)
+	{
+		os << "x: " << temp->p.x << '\t' << "y: " << temp->p.y << '\t' << "z: " << temp->p.z << std::endl;
+		temp = temp->next;
+	}
+	return os;
 }
