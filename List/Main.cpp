@@ -9,8 +9,8 @@ int main()
 	l1.PushBack(Point{ 4, 5, 6 });
 	l1.PushBack(Point{ 7, 8, 9 });
 	
-	l2.PushBack(Point{ -1, -2, -3 });
+	l2.PushBack(l1[1]);
 
 	cout << l1 + l2 << endl;
-	cout << l2 * 3;
+	cout << l2 * 3 << endl;
 }

@@ -25,13 +25,13 @@ public:
 	Error Insert(const Point&, const size_t);
 	size_t Size();
 
-	List& operator =(const List&);
-	List& operator --(int);
-	List& operator +=(const List&);
-	List& operator +(const List&);
-	List& operator *(const unsigned int);
-	List& operator ++(int);
-	Point& operator [](const size_t);
+	List& operator=(const List&);
+	List& operator--(int);
+	List& operator+=(const List&);
+	List& operator+(const List&);
+	List& operator*(const unsigned int);
+	List& operator++(int);
+	Point& operator[](const size_t);
 	friend std::ostream& operator <<(std::ostream&, const List&);
 
 

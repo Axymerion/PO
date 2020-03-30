@@ -39,10 +39,13 @@ List::List(const List& inputList)
 
 List::~List() 
 {
-	while (this->size > 0)
+	while (first != nullptr) 
 	{
-		PopBack();
+		Node* temp = first;
+		first = first->next;
+		delete temp;
 	}
+	this->size = 0;
 }
 
 List::Node* List::Find(const size_t i)
@@ -96,7 +99,8 @@ void List::Push(const Point& p, const size_t i)
 void List::Push(const List& inputList, const size_t index)
 {
 	Node* temp = inputList.first;
-	for (size_t i = 0; i < inputList.size; i++)
+	size_t size = inputList.size;
+	for (size_t i = 0; i < size; i++)
 	{
 		this->Push(temp->p, index + i);
 		temp = temp->next;
@@ -105,12 +109,18 @@ void List::Push(const List& inputList, const size_t index)
 
 void List::Multiply(const int multiplier)
 {
-	size_t size = this->size;
-	for (int i = 0; i < multiplier; i++)
+	if (multiplier == 0)
 	{
-		for (size_t j = 0; j < size; j++)
+		this->~List();
+		return;
+	}
+	else
+	{
+		List* temp = new List();
+		*temp = *this;
+		for (size_t i = 0; i < multiplier - 1; i++)
 		{
-			PushBack(this->Find(i)->p);
+			this->Push(*temp, this->size);
 		}
 	}
 }
@@ -169,7 +179,7 @@ Point& List::operator[] (size_t index)
 	return temp->p;
 }
 
-List& List::operator =(const List& inputList)
+List& List::operator=(const List& inputList)
 {
 	while (this->size > 0)
 	{
@@ -188,20 +198,20 @@ List& List::operator =(const List& inputList)
 	return *this;
 }
 
-List& List::operator --(int)
+List& List::operator--(int)
 {
 	List *temp = new List(*this);
 	this->PopBack();
 	return *temp;
 }
 
-List& List::operator +=(const List& inputList)
+List& List::operator+=(const List& inputList)
 {
 	this->Push(inputList, size);
 	return *this;
 }
 
-List& List::operator +(const List& inputList)
+List& List::operator+(const List& inputList)
 {
 	List *temp = new List();
 	*temp = *this;
@@ -209,27 +219,25 @@ List& List::operator +(const List& inputList)
 	return *temp;
 }
 
-List& List::operator *(const unsigned int scale)
+List& List::operator*(const unsigned int scale)
 {
 	List* temp = new List();
-	for (unsigned int i = 0; i < scale; i++)
+	if (scale != 0)
 	{
-		*temp += *this;
+		*temp = *this;
+		temp->Multiply(scale);
 	}
 	return *temp;
 }
 
-List& List::operator ++(int)
+List& List::operator++(int)
 {
 	List *temp = new List(*this);
-	while (this->size > 0)
-	{
-		PopBack();
-	}
+	this->~List();
 	return *temp;
 }
 
-std::ostream& operator <<(std::ostream& os, const List& inputList)
+std::ostream& operator<<(std::ostream& os, const List& inputList)
 {
 	List::Node* temp = inputList.first;
 	for (size_t i = 0; i < inputList.size; i++)
