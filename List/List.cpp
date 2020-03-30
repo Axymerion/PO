@@ -123,6 +123,7 @@ void List::Multiply(const int multiplier)
 			this->Push(*temp, this->size);
 		}
 	}
+	delete temp;
 }
 
 List::Error List::Find(Point& out, const size_t i)
