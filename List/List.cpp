@@ -114,6 +114,10 @@ void List::Multiply(const int multiplier)
 		this->~List();
 		return;
 	}
+	else if (multiplier == 1)
+	{
+		return;
+	}
 	else
 	{
 		List* temp = new List();
@@ -122,8 +126,8 @@ void List::Multiply(const int multiplier)
 		{
 			this->Push(*temp, this->size);
 		}
+		delete temp;
 	}
-	delete temp;
 }
 
 List::Error List::Find(Point& out, const size_t i)
