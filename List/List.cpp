@@ -187,16 +187,7 @@ Point& List::operator[] (size_t index)
 List& List::operator=(const List& inputList)
 {
 	this->~List();
-	Node* temp1 = inputList.first;
-	Node* temp2 = this->first = new Node{ temp1->p, nullptr };
-
-	for (size_t i = 1; i < inputList.size; i++)
-	{
-		temp2->next = new Node{ temp1->p, nullptr };
-		temp2 = temp2->next;
-		temp1 = temp1->next;
-	}
-	this->size = inputList.size;
+	this->Push(inputList, 0);
 	return *this;
 }
 
