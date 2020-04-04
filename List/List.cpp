@@ -186,10 +186,7 @@ Point& List::operator[] (size_t index)
 
 List& List::operator=(const List& inputList)
 {
-	while (this->size > 0)
-	{
-		PopBack();
-	}
+	this->~List();
 	Node* temp1 = inputList.first;
 	Node* temp2 = this->first = new Node{ temp1->p, nullptr };
 
