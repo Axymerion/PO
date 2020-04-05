@@ -72,12 +72,6 @@ void List::Pop(const size_t i)
 		temp1->next = temp2->next;
 		delete temp2;
 	}
-	else
-	{
-		Node* temp = Find(i - 1);
-		delete temp->next;
-		temp->next = nullptr;
-	}
 	this->size--;
 
 }
