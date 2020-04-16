@@ -77,6 +77,25 @@ FileError CsvFile::Read(std::vector<Point>& v)
 
 FileError CsvFile::Read(Point& p, const unsigned long idx)
 {
-	//TODO
-	return ACCESS_DENIED;
+	if (!(openMode & std::fstream::in))
+	{
+		return ACCESS_DENIED;
+	}
+	
+	file.seekg(0, std::fstream::beg);
+
+	for (unsigned long i = 0; i < idx; i++)
+	{
+		file.ignore(10000, '\n');
+	}
+	std::string temp;
+	file >> temp;
+
+	std::vector<std::string> tempV = Split(temp, ',');
+
+	p = Point{ std::stod(tempV[0]),
+				std::stod(tempV[1]),
+				std::stod(tempV[2]) };
+
+	return SUCCESS;
 }
