@@ -37,26 +37,46 @@ std::vector<std::string> CsvFile::Split(std::string str, char delim) {
 
 FileError CsvFile::Write(const std::vector<Point> &v)
 {
+	if (!(openMode & std::fstream::out))
+	{
+		return ACCESS_DENIED;
+	}
+
 	file.seekp(0, std::fstream::end);
-	for (int i = 0; i < v.size(); i++)
+	for (unsigned int i = 0; i < v.size(); i++)
 	{
 		file << v[i].x << ',' << v[i].y << ',' << v[i].z << std::endl;
 	}
 	length = file.tellp();
+	return SUCCESS;
 }
 
 FileError CsvFile::Read(std::vector<Point>& v)
 {
-	//Tu sie konczy to co dziala xD
+	if (!(openMode & std::fstream::in))
+	{
+		return ACCESS_DENIED;
+	}
+
 	file.seekg(0, std::fstream::beg);
-	while (!file.eof)
+	v.clear();
+
+	while (!file.eof())
 	{
 		std::string temp;
 		file >> temp;
 		std::vector<std::string> tempV;
 		tempV = Split(temp, ',');
 		
+		v[v.size()] = Point{std::stod(tempV[0]),
+							std::stod(tempV[1]),
+							std::stod(tempV[2])};
 	}
+	return SUCCESS;
 }
 
-FileError CsvFile::Read
+FileError CsvFile::Read(Point& p, const unsigned long idx)
+{
+	//TODO
+	return ACCESS_DENIED;
+}
