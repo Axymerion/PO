@@ -1,22 +1,13 @@
 #pragma once
-#include <fstream>
-#include <vector>
-#include "Point.h"
-#include "FileError.h"
+#include "IFile.h"
 
-class BinaryFile
+class BinaryFile : public IFile
 {
-private:
-	std::fstream file;
-	std::string filePath;
-	unsigned long length;
-	std::fstream::openmode openMode;
 public:
 	BinaryFile(const std::string, const std::string);
-	~BinaryFile();
 
-	FileError Write(const std::vector<Point>&);
-	FileError Read(std::vector<Point>&);
-	FileError Read(Point&, const unsigned long);
+	virtual FileError Write(const std::vector<Point>&);
+	virtual FileError Read(std::vector<Point>&);
+	virtual FileError Read(Point&, const unsigned long);
 };
 

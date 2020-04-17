@@ -1,7 +1,9 @@
 #include "CsvFile.h"
 
-CsvFile::CsvFile(const std::string filePath, const std::string mode) : filePath(filePath)
+CsvFile::CsvFile(const std::string filePath, const std::string mode) 
 {
+	this->filePath = filePath;
+
 	if (mode.find("r") != std::string::npos) openMode |= std::fstream::in;
 	if (mode.find("w") != std::string::npos) openMode |= std::fstream::out;
 	if (mode.find("a") != std::string::npos) openMode |= std::fstream::app;
@@ -12,11 +14,6 @@ CsvFile::CsvFile(const std::string filePath, const std::string mode) : filePath(
 	file.seekg(0, std::fstream::end);
 	length = file.tellg() / sizeof( char );
 	file.seekg(0, std::fstream::beg);
-}
-
-CsvFile::~CsvFile()
-{
-	file.close();
 }
 
 void CsvFile::WriteLine(Point p)
@@ -61,14 +58,10 @@ FileError CsvFile::Read(std::vector<Point>& v)
 	file.seekg(0, std::fstream::beg);
 	v.clear();
 
-	while (true)
+	while (file.tellp() < length - 2)
 	{
 		std::string temp;
 		file >> temp;
-		if (file.eof())
-		{
-			break;
-		}
 
 		std::vector<std::string> tempV;
 		tempV = Split(temp, ',');
@@ -92,7 +85,12 @@ FileError CsvFile::Read(Point& p, const unsigned long idx)
 	for (unsigned long i = 0; i < idx; i++)
 	{
 		file.ignore(10000, '\n');
+		if (file.eof())
+		{
+			return OUT_OF_BOUNDS;
+		}
 	}
+
 	std::string temp;
 	file >> temp;
 

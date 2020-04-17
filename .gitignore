@@ -3,6 +3,7 @@
 *.vcxproj
 *.sln
 \.vs
+.txt
 Debug
 
 # Prerequisites

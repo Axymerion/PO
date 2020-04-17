@@ -1,7 +1,8 @@
 #include "BinaryFile.h"
 
-BinaryFile::BinaryFile(const std::string filePath, const std::string mode) : filePath(filePath)
+BinaryFile::BinaryFile(const std::string filePath, const std::string mode)
 {
+	this->filePath = filePath;
 	openMode = std::fstream::binary;
 
 	if (mode.find("r") != std::string::npos) openMode |= std::fstream::in;
@@ -14,11 +15,6 @@ BinaryFile::BinaryFile(const std::string filePath, const std::string mode) : fil
 	file.seekg(0, std::fstream::end);
 	length = file.tellg();
 	file.seekg(0, std::fstream::beg);
-}
-
-BinaryFile::~BinaryFile()
-{
-	file.close();
 }
 
 FileError BinaryFile::Write(const std::vector<Point>& v)
