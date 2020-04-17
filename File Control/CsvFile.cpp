@@ -61,16 +61,21 @@ FileError CsvFile::Read(std::vector<Point>& v)
 	file.seekg(0, std::fstream::beg);
 	v.clear();
 
-	while (!file.eof())
+	while (true)
 	{
 		std::string temp;
 		file >> temp;
+		if (file.eof())
+		{
+			break;
+		}
+
 		std::vector<std::string> tempV;
 		tempV = Split(temp, ',');
 		
-		v[v.size()] = Point{std::stod(tempV[0]),
-							std::stod(tempV[1]),
-							std::stod(tempV[2])};
+		v.push_back( Point { std::stod(tempV[0]),
+							 std::stod(tempV[1]),
+							 std::stod(tempV[2]) } );
 	}
 	return SUCCESS;
 }
