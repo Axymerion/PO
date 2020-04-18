@@ -12,7 +12,7 @@ CsvFile::CsvFile(const std::string filePath, const std::string mode)
 
 	file.open(filePath, openMode);
 	file.seekg(0, std::fstream::end);
-	length = file.tellg() / sizeof( char );
+	length = file.tellg();
 	file.seekg(0, std::fstream::beg);
 }
 
