@@ -86,7 +86,7 @@ FileError CsvFile::Read(Point& p, const unsigned long idx)
 	for (unsigned long i = 0; i < idx; i++)
 	{
 		file.ignore(10000, '\n');
-		if (file.eof())
+		if (file.eof() || file.tellg() > length - 2)
 		{
 			return OUT_OF_BOUNDS;
 		}
