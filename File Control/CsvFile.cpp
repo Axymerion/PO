@@ -20,6 +20,7 @@ void CsvFile::WriteLine(Point p)
 {
 	file.seekp(0, std::fstream::end);
 	file << p.x << ',' << p.y << ',' << p.z << std::endl;
+	length = file.tellp();
 }
 
 std::vector<std::string> CsvFile::Split(std::string str, char delim) {
