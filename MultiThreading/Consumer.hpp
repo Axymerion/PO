@@ -8,13 +8,9 @@ class Consumer : public IThread
 	double avg;
 	std::mutex avgMutex;
 
-public:
-	
-	Consumer(Producer* param) : prodPtr(param) {};
-
 	void ThreadRoutine()
 	{
-		while (thrState == RUNNING) 
+		while (thrState == RUNNING)
 		{
 			std::this_thread::sleep_for(std::chrono::milliseconds(600));
 			std::list<double> temp = prodPtr->GetList();
@@ -28,6 +24,10 @@ public:
 			avgMutex.unlock();
 		}
 	}
+
+public:
+	
+	Consumer(Producer* param) : prodPtr(param), avg(0) {};
 
 	double GetAvg()
 	{

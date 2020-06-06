@@ -11,14 +11,11 @@ class Producer : public IThread
 {
 	std::list<double> list;
 	std::mutex listMutex;
-	
-public:
-	Producer(){}
 
 	void ThreadRoutine()
 	{
 		srand(time(0));
-		while (thrState == RUNNING) 
+		while (thrState == RUNNING)
 		{
 			listMutex.lock();
 			list.push_back((double)rand() / RAND_MAX);
@@ -26,6 +23,9 @@ public:
 			std::this_thread::sleep_for(std::chrono::milliseconds(500));
 		}
 	}
+	
+public:
+	Producer(){}
 
 	std::list<double> GetList()
 	{
