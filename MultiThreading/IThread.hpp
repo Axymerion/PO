@@ -15,7 +15,7 @@ public:
 	virtual void ThreadRoutine() = 0;
 
 
-private:
+protected:
 	Status thrState;
 	std::thread* thrPtr;
 };

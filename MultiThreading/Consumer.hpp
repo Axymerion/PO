@@ -14,16 +14,19 @@ public:
 
 	void ThreadRoutine()
 	{
-		std::this_thread::sleep_for(std::chrono::milliseconds(1500));
-		std::list<double> temp = prodPtr->GetList();
-		avgMutex.lock();
-		avg = 0;
-		for(double n : temp)
+		while (thrState == RUNNING) 
 		{
-			avg += n;
+			std::this_thread::sleep_for(std::chrono::milliseconds(600));
+			std::list<double> temp = prodPtr->GetList();
+			avgMutex.lock();
+			avg = 0;
+			for (double n : temp)
+			{
+				avg += n;
+			}
+			avg /= temp.size();
+			avgMutex.unlock();
 		}
-		avg /= temp.size();
-		avgMutex.unlock();
 	}
 
 	double GetAvg()

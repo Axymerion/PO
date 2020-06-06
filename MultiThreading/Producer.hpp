@@ -4,26 +4,27 @@
 #include <list>
 #include <cstdlib>
 #include <chrono>
+#include <ctime>
 
 
 class Producer : public IThread
 {
-	Producer()
-	{
-		srand(time(0));
-	}
-
 	std::list<double> list;
+	std::mutex listMutex;
 	
 public:
-	std::mutex listMutex;
+	Producer(){}
 
 	void ThreadRoutine()
 	{
-		listMutex.lock();
-		list.push_back(rand());
-		listMutex.unlock();
-		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+		srand(time(0));
+		while (thrState == RUNNING) 
+		{
+			listMutex.lock();
+			list.push_back((double)rand() / RAND_MAX);
+			listMutex.unlock();
+			std::this_thread::sleep_for(std::chrono::milliseconds(500));
+		}
 	}
 
 	std::list<double> GetList()

@@ -4,7 +4,8 @@ IThread::IThread() : thrPtr(nullptr), thrState(STOPPED) {};
 
 IThread::~IThread()
 {
-	Join();
+	Stop();
+	//Join();
 }
 
 void IThread::Start()
@@ -20,7 +21,6 @@ void IThread::Stop()
 {
 	if (thrPtr)
 	{
-
 		thrState = STOPPED;
 		if (thrPtr->joinable())
 			thrPtr->join();
