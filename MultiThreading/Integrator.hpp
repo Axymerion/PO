@@ -7,7 +7,6 @@ class Integrator : public IThread
 public:
 	Integrator();
 	enum Status {IDLE, WORKING};
-	std::vector<double> data;
 	void Count(std::vector<double>&, const double);
 	Status GetStatus();
 	double GetResult();
@@ -15,6 +14,7 @@ public:
 private:
 	double step;
 	double result;
+	std::vector<double> data;
 	Status status;
 	std::mutex dataMutex;
 	std::mutex statusMutex;
