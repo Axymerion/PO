@@ -15,8 +15,8 @@ int main()
 
 		//1000000 punktow, 100 obiektow konwencjonalnie: 2974ms
 		//1000000 punktow, 100 obiektow IntegratorPool : 2453ms
-	
-	
+
+
 	Producer* pr[3];
 	Consumer* cs[3];
 
@@ -32,7 +32,7 @@ int main()
 	}
 	std::cout << "Done!" << std::endl;
 
-	while(true) //Obsluga konsoli
+	while (true) //Obsluga konsoli
 	{
 
 		int buff = _getch();
@@ -56,7 +56,7 @@ int main()
 		pr[i]->Stop();
 		cs[i]->Stop();
 	}
-	
+
 
 	//Kod do testowania calek
 

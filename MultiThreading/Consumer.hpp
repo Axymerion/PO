@@ -10,7 +10,7 @@ class Consumer : public IThread
 
 	void ThreadRoutine()
 	{
-		while (thrState == RUNNING)
+		while (IsRunning())
 		{
 			std::this_thread::sleep_for(std::chrono::milliseconds(600));
 			std::list<double> temp = prodPtr->GetList();

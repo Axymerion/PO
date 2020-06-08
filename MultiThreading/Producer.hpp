@@ -15,7 +15,7 @@ class Producer : public IThread
 	void ThreadRoutine()
 	{
 		srand(time(0));
-		while (thrState == RUNNING)
+		while (IsRunning())
 		{
 			listMutex.lock();
 			list.push_back((double)rand() / RAND_MAX);

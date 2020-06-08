@@ -36,7 +36,7 @@ void Integrator::SetStatus(Integrator::Status param)
 
 void Integrator::ThreadRoutine()
 {
-	while (thrState == RUNNING)
+	while (IsRunning())
 	{
 		if (GetStatus() == WORKING)
 		{

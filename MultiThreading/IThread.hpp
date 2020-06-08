@@ -4,8 +4,6 @@
 class IThread
 {
 public:
-	enum Status { STOPPED, RUNNING };
-
 	IThread();
 	virtual ~IThread();
 	bool IsRunning();
@@ -15,7 +13,8 @@ public:
 	virtual void ThreadRoutine() = 0;
 
 
-protected:
+private:
+	enum Status { STOPPED, RUNNING };
 	Status thrState;
 	std::thread* thrPtr;
 };
