@@ -1,5 +1,7 @@
 #include "Server.hpp"
 #include "Client.hpp"
+#include "Frame.hpp"
+#include <iostream>
 
 int main()
 {

@@ -1,5 +1,6 @@
 #pragma once
 #include "asio.hpp"
+#include "Frame.hpp"
 #include <string>
 #include <iostream>
 

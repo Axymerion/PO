@@ -1,4 +1,5 @@
 #include "Server.hpp"
+#include "Frame.hpp"
 
 Server::Server(unsigned short port) : port(port) {};
 
@@ -10,9 +11,10 @@ void session(asio::ip::tcp::socket socket)
 	{
 		while (true)
 		{
-			char frame[1024];
-			size_t length = socket.read_some(asio::buffer(frame));
-			asio::write(socket, asio::buffer(frame, length));
+			Frame frame;
+			socket.read_some(frame);
+			if (frame.type == FrameType::ECHO)
+				asio::write(socket, asio::buffer(&frame, 1027));
 		}
 	}
 	catch (std::exception& ex)
