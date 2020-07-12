@@ -4,7 +4,7 @@ enum FrameType {ECHO = 0x00, TEXT, RECV_FILE, SEND_FILE, FILE_DATA, END_OF_FILE,
 
 struct Frame
 {
-	char type;
+	unsigned char type;
 	unsigned short len;
 	char data[1024];
 };

@@ -2,6 +2,7 @@
 #include "IThread.hpp"
 #include "asio.hpp"
 #include "Frame.hpp"
+#include "BinFile.h"
 #include <iostream>
 
 class Server : public IThread
