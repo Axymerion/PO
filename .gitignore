@@ -3,7 +3,8 @@
 *.vcxproj
 *.sln
 \.vs
-.txt
+*.txt
+*.csv
 Debug
 
 # Prerequisites
