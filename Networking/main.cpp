@@ -10,6 +10,6 @@ int main()
 
 	s.Start();
 	
-	return c.SendFile("wysylanie.txt", asio::ip::address_v4::from_string("127.0.0.1"), 2137);
+	return c.RecvFile("wysylanie.txt", asio::ip::address_v4::from_string("127.0.0.1"), 2137);
 
 }

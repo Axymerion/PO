@@ -24,7 +24,8 @@ void session(asio::ip::tcp::socket socket)
 		case FrameType::RECV_FILE:
 		{
 			char path[1024];
-			strcpy_s(path, frame.len, frame.data);
+			frame.data[frame.len] = 0;
+			strcpy_s(path, frame.len + 1, frame.data);
 			//Kontrola pliku
 			BinFile plik(path, false);
 
